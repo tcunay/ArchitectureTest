@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CodeBase.CameraLogic
 {
@@ -8,10 +7,8 @@ namespace CodeBase.CameraLogic
         public float RotationAngleX;
         public int Distance;
         public float OffsetY;
-
-
-        [SerializeField]
-        private Transform _following;
+        
+        [SerializeField] private Transform _following;
 
         private void LateUpdate()
         {
