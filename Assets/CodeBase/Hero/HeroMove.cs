@@ -23,8 +23,6 @@ namespace CodeBase.Hero
         private void Start()
         {
             _camera = Camera.main;
-            
-            CameraFollow();
         }
 
         private void Update()
@@ -43,8 +41,5 @@ namespace CodeBase.Hero
             
             CharacterController.Move(MovementSpeed * movementVector * Time.deltaTime);
         }
-
-        private void CameraFollow() => 
-            _camera.GetComponent<CameraFollow>().Follow(gameObject);
     }
 }
