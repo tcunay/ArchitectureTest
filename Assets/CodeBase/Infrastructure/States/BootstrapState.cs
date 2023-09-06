@@ -2,6 +2,8 @@
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Input;
+using CodeBase.Infrastructure.Services.PersistantProgress;
+using CodeBase.Infrastructure.Services.SaveLoad;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
@@ -9,17 +11,16 @@ namespace CodeBase.Infrastructure.States
     public class BootstrapState : IState
     {
         private const string InitialSceneName = "Initial";
-        private const string MainSceneName = "Main";
 
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
-        private readonly AllServices _allServices;
+        private readonly AllServices _services;
 
         public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
-            _allServices = services;
+            _services = services;
 
             RegisterServices();
         }
@@ -34,13 +35,15 @@ namespace CodeBase.Infrastructure.States
         }
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadLevelState, string>(MainSceneName);
+            _stateMachine.Enter<LoadProgressState>();
 
         private void RegisterServices()
         {
-            _allServices.RegisterSingle<IInputService>(InputService());
-            _allServices.RegisterSingle<IAssets>(new Assets());
-            _allServices.RegisterSingle<IGameFactory>(new GameFactory(_allServices.Single<IAssets>()));
+            _services.RegisterSingle<IInputService>(InputService());
+            _services.RegisterSingle<IAssets>(new Assets());
+            _services.RegisterSingle<IPersistantProgressService>(new PersistantProgressService());
+            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssets>()));
+            _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistantProgressService>(), _services.Single<IGameFactory>()));
         }
 
         private static IInputService InputService() =>

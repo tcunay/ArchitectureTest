@@ -1,16 +1,14 @@
-using System;
-using CodeBase.CameraLogic;
-using CodeBase.Infrastructure;
+using CodeBase.Data;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Input;
-using TMPro;
+using CodeBase.Infrastructure.Services.PersistantProgress;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.SceneManagement;
 
 namespace CodeBase.Hero
 {
     [RequireComponent(typeof(CharacterController))]
-    public class HeroMove : MonoBehaviour
+    public class HeroMove : MonoBehaviour, ISavedProgress
     {
         [SerializeField] public float _movementSpeed;
 
@@ -44,6 +42,36 @@ namespace CodeBase.Hero
             movementVector += Physics.gravity;
             
             _characterController.Move(_movementSpeed * movementVector * Time.deltaTime);
+        }
+
+        public void UpdateProgress(PlayerProgress progress) =>
+            progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            PositionOnLevel positionOnLevel = progress.WorldData.PositionOnLevel;
+            
+            if (CurrentLevel() == positionOnLevel.Level)
+            {
+                Vector3Data savedPosition = positionOnLevel.Position;
+
+                if (savedPosition != null)
+                {
+                    Warp(to: savedPosition);
+                }
+            }
+        }
+
+        private void Warp(Vector3Data to)
+        {
+            _characterController.enabled = false;
+            transform.position = to.AsUnityVector().AddY(_characterController.height);
+            _characterController.enabled = true;
+        }
+
+        private static string CurrentLevel()
+        {
+            return SceneManager.GetActiveScene().name;
         }
     }
 }
