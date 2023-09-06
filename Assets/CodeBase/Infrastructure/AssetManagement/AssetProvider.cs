@@ -2,13 +2,7 @@
 
 namespace CodeBase.Infrastructure.AssetManagement
 {
-    public interface IAssetProvider
-    {
-        GameObject Instantiate(string path);
-        GameObject Instantiate(string path, Vector3 at);
-    }
-
-    public class AssetProvider : IAssetProvider
+    public class Assets : IAssets
     {
         public GameObject Instantiate(string path)
         {
