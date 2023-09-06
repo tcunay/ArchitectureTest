@@ -1,4 +1,5 @@
 ﻿using System;
+using CodeBase.Logic;
 using UnityEngine;
 
 namespace CodeBase.Hero
@@ -72,14 +73,5 @@ namespace CodeBase.Hero
 
         private void SetTrigger(int hash) 
             => Animator.SetTrigger(hash);
-    }
-
-    public enum AnimatorState
-    {
-        Unknown,
-        Idle,
-        Attack,
-        Walking,
-        Died,
     }
 }
