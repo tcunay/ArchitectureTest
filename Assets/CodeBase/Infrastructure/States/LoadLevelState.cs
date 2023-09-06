@@ -1,20 +1,18 @@
-﻿using System;
-using CodeBase.CameraLogic;
+﻿using CodeBase.CameraLogic;
+using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
-namespace CodeBase.Infrastructure
+namespace CodeBase.Infrastructure.States
 {
     public class LoadLevelState : IPayloadedState<string>
     {
         private const string InitialPointTag = "InitialPoint";
-        private const string HeroPrefabPath = "Hero/hero";
-        private const string HudPrefabPath = "Hud/Hud";
-        
+
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
+        private readonly IGameFactory _gameFactory;
 
         public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
         {
@@ -36,26 +34,15 @@ namespace CodeBase.Infrastructure
 
         private void OnLoaded()
         {
-            GameObject initialPoint = GameObject.FindGameObjectWithTag(InitialPointTag);
-            GameObject hero = Instantiate(HeroPrefabPath, at: initialPoint.transform.position);
-            Instantiate(HudPrefabPath);
+            GameObject hero = _gameFactory.CreateHero(at: GameObject.FindGameObjectWithTag(InitialPointTag));
+
+            _gameFactory.CreateHud();
+            
             CameraFollow(hero);
             
             _stateMachine.Enter<GameLoopState>();
         }
-        
-        private static GameObject Instantiate(string path)
-        {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab);
-        }
 
-        private static GameObject Instantiate(string path, Vector3 at)
-        {
-            var prefab = Resources.Load<GameObject>(path);
-            return Object.Instantiate(prefab, at, Quaternion.identity);
-        }
-        
         private void CameraFollow(GameObject following) => 
             Camera.main.GetComponent<CameraFollow>().Follow(following);
     }
