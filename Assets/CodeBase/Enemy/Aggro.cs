@@ -6,7 +6,7 @@ namespace CodeBase.Enemy
     public class Aggro : MonoBehaviour
     {
         [SerializeField] private TriggerObserver _triggerObserver;
-        [SerializeField] private AgentMoveToPlayer _follow;
+        [SerializeField] private FollowToHerro _follow;
         [SerializeField] private float _coolDown;
         
         private Coroutine _aggroCoroutine;
