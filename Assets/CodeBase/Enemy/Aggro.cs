@@ -10,10 +10,12 @@ namespace CodeBase.Enemy
         [SerializeField] private float _coolDown;
         
         private Coroutine _aggroCoroutine;
+        private WaitForSeconds _coolDownWaitInstruction;
         private bool _hasAggroTarget;
 
         private void Start()
         {
+            _coolDownWaitInstruction = new WaitForSeconds(_coolDown);
             _triggerObserver.TriggerEnter += TriggerEnter;
             _triggerObserver.TriggerExit += TriggerExit;
 
@@ -58,7 +60,7 @@ namespace CodeBase.Enemy
 
         private IEnumerator SwitchFollowAfterCooldown()
         {
-            yield return new WaitForSeconds(_coolDown);
+            yield return _coolDownWaitInstruction;
             SwitchFollowOff();
         }
 
