@@ -1,9 +1,7 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CodeBase.Enemy
 {
@@ -61,18 +59,18 @@ namespace CodeBase.Enemy
             }
         }
 
+        private void OnAttackEnded()
+        {
+            _currentAttackCooldown = _attackCooldown;
+            _isAttacking = false;
+        }
+
         private bool Hit(out Collider hit)
         {
             int hitsCount = Physics.OverlapSphereNonAlloc(StartPoint(), _сleaveage, _hits, _layerMask);
             hit = _hits.FirstOrDefault();
             
             return hitsCount > 0;
-        }
-
-        private void OnAttackEnded()
-        {
-            _currentAttackCooldown = _attackCooldown;
-            _isAttacking = false;
         }
 
         private void StartAttack()
