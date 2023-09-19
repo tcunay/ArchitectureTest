@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CodeBase.Enemy
 {
@@ -10,19 +12,24 @@ namespace CodeBase.Enemy
     {
         [SerializeField] private EnemyAnimator _animator;
         [SerializeField] private float _attackCooldown = 3f;
-        [SerializeField] private float _сleaveage = 1f;
+        [SerializeField] private float _сleaveage = 0.5f;
+        [SerializeField] private float _effectiveDistance = 0.5f;
+
+        private readonly Collider[] _hits = new Collider[1];
 
         private IGameFactory _factory;
         private Transform _heroTransform;
         private float _currentAttackCooldown;
         private bool _isAttacking;
         private int _layerMask;
-        private Collider[] _hits = new Collider[1];
+        private bool _attackIsActive;
+
+        private const string PlayerLayerName = "Player";
 
         private void Awake()
         {
             _factory = AllServices.Container.Single<IGameFactory>();
-            _layerMask = 1 << LayerMask.NameToLayer("Player");
+            _layerMask = 1 << LayerMask.NameToLayer(PlayerLayerName);
             _factory.HeroCreated += OnHeroCreated;
         }
 
@@ -34,6 +41,12 @@ namespace CodeBase.Enemy
                 StartAttack();
         }
 
+        public void EnableAttack() => 
+            _attackIsActive = true;
+
+        public void DisableAttack() => 
+            _attackIsActive = false;
+
         private void UpdateCooldown()
         {
             if (CooldownIsUp() == false)
@@ -44,14 +57,16 @@ namespace CodeBase.Enemy
         {
             if (Hit(out Collider hit))
             {
-                
+                PhysicsDebug.DrawDebug(StartPoint(), _сleaveage, 1);
             }
         }
 
         private bool Hit(out Collider hit)
         {
-            Vector3 startPoint = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z);
-            Physics.OverlapSphereNonAlloc(startPoint, _сleaveage, _hits, _layerMask);
+            int hitsCount = Physics.OverlapSphereNonAlloc(StartPoint(), _сleaveage, _hits, _layerMask);
+            hit = _hits.FirstOrDefault();
+            
+            return hitsCount > 0;
         }
 
         private void OnAttackEnded()
@@ -68,8 +83,11 @@ namespace CodeBase.Enemy
             _isAttacking = true;
         }
 
+        private Vector3 StartPoint() => 
+            new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z) + transform.forward * _effectiveDistance;
+
         private bool CanAttack() => 
-            _isAttacking == false && CooldownIsUp();
+            _attackIsActive && _isAttacking == false && CooldownIsUp();
 
         private bool CooldownIsUp() => 
             _currentAttackCooldown < 0;
