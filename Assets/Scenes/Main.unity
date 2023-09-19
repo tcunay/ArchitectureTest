@@ -578,6 +578,10 @@ PrefabInstance:
       propertyPath: _follow
       value: 
       objectReference: {fileID: 871723311}
+    - target: {fileID: 6952911707199396734, guid: 274c4c35ed05ea14c87492064b3cadfd, type: 3}
+      propertyPath: _attackCooldown
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 274c4c35ed05ea14c87492064b3cadfd, type: 3}
 --- !u!114 &871723311 stripped
@@ -666,7 +670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RotationAngleX: 55
-  Distance: 10
+  Distance: 7
   OffsetY: 0.5
   _following: {fileID: 0}
 --- !u!1001 &898627494
