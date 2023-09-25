@@ -58,7 +58,7 @@ namespace CodeBase.Infrastructure.Factory
                 Register(progressReader);
         }
 
-        private void Register(ISavedProgressReader progressReader)
+        public void Register(ISavedProgressReader progressReader)
         {
             if (progressReader is ISavedProgress progressWriter)
             {
