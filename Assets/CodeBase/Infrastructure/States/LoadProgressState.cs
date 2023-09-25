@@ -38,6 +38,8 @@ namespace CodeBase.Infrastructure.States
             PlayerProgress playerProgress = new PlayerProgress(initialLevel: "Main");
 
             playerProgress.HeroState.MaxHealth = 50;
+            playerProgress.HeroStats.Damage = 1f;
+            playerProgress.HeroStats.DamageRadius = 0.5f;
             playerProgress.HeroState.ResetHealth();
             return playerProgress;
         }

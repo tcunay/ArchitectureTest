@@ -1,20 +1,21 @@
 ﻿using System;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistantProgress;
+using CodeBase.Logic;
 using UnityEngine;
 
 namespace CodeBase.Hero
 {
     [RequireComponent(typeof(HeroAnimator))]
-    public class HeroHealth : MonoBehaviour, ISavedProgress
+    public class HeroHealth : MonoBehaviour, ISavedProgress, IHealth
     {
         [SerializeField] private HeroAnimator _animator;
         
         private State _state;
 
-        public bool IsDead => Current <= 0;
+        public event Action HealthChanged;
         
-        public Action HealthChanged;
+        public bool IsDead => Current <= 0;
 
         public float Current
         {
@@ -35,6 +36,7 @@ namespace CodeBase.Hero
             get => _state.MaxHealth;
             set => _state.MaxHealth = value;
         }
+
 
         public void LoadProgress(PlayerProgress progress)
         {
