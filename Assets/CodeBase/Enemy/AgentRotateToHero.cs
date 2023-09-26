@@ -33,7 +33,7 @@ namespace CodeBase.Enemy
         private void UpdatePositionToLookAt()
         {
             Vector3 position = transform.position;
-            Vector3 positionDiff = Herro.position - position;
+            Vector3 positionDiff = Hero.position - position;
             _positionToLook = new Vector3(positionDiff.x, position.y, positionDiff.z);
         }
     }

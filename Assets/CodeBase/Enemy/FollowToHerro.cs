@@ -7,29 +7,15 @@ namespace CodeBase.Enemy
     public abstract class FollowToHerro : MonoBehaviour
     {
         private Transform _heroTransform;
-        private IGameFactory _gameFactory;
 
-        protected Transform Herro => _heroTransform;
+        protected Transform Hero => _heroTransform;
 
-        private void Start()
+        public void Construct(Transform hero)
         {
-            _gameFactory = AllServices.Container.Single<IGameFactory>();
-
-            if (_gameFactory.HeroGameObject != null) 
-                InitHeroTransform();
-            else
-            {
-                _gameFactory.HeroCreated += HeroCreated;
-            }
+            _heroTransform = hero;
         }
         
         protected bool HeroIsInit() => 
             _heroTransform != null;
-        
-        private void HeroCreated() => 
-            InitHeroTransform();
-
-        private void InitHeroTransform() => 
-            _heroTransform = _gameFactory.HeroGameObject.transform;
     }
 }

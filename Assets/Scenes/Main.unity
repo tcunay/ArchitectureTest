@@ -900,6 +900,10 @@ PrefabInstance:
       propertyPath: _id
       value: Main_8dab7702-1101-4533-8c72-f596131b88b5
       objectReference: {fileID: 0}
+    - target: {fileID: 5536513441494279292, guid: dc6f91aa9f9941148a98118362ed3cfe, type: 3}
+      propertyPath: _monsterTypeId
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6995938417653360083, guid: dc6f91aa9f9941148a98118362ed3cfe, type: 3}
       propertyPath: m_RootOrder
       value: 6

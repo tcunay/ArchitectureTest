@@ -36,8 +36,13 @@ namespace CodeBase.Hero
             get => _state.MaxHealth;
             set => _state.MaxHealth = value;
         }
-
-
+        
+        public void SetData(float current, float max)
+        {
+            Current = current;
+            Max = max;
+        }
+        
         public void LoadProgress(PlayerProgress progress)
         {
             _state = progress.HeroState;

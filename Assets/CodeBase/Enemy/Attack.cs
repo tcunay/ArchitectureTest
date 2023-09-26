@@ -1,7 +1,4 @@
 ﻿using System.Linq;
-using CodeBase.Hero;
-using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services;
 using CodeBase.Logic;
 using UnityEngine;
 
@@ -18,7 +15,6 @@ namespace CodeBase.Enemy
 
         private readonly Collider[] _hits = new Collider[1];
 
-        private IGameFactory _factory;
         private Transform _heroTransform;
         private float _currentAttackCooldown;
         private bool _isAttacking;
@@ -27,11 +23,21 @@ namespace CodeBase.Enemy
 
         private const string PlayerLayerName = "Player";
 
+        public void Construct(Transform hero)
+        {
+            _heroTransform = hero;
+        }
+
+        public void SetData(float damage, float cleavage, float effectiveDistance)
+        {
+            _damage = damage;
+            _сleaveage = cleavage;
+            _effectiveDistance = effectiveDistance;
+        }
+
         private void Awake()
         {
-            _factory = AllServices.Container.Single<IGameFactory>();
             _layerMask = 1 << LayerMask.NameToLayer(PlayerLayerName);
-            _factory.HeroCreated += OnHeroCreated;
         }
 
         private void Update()
@@ -93,8 +99,5 @@ namespace CodeBase.Enemy
 
         private bool CooldownIsUp() => 
             _currentAttackCooldown < 0;
-
-        private void OnHeroCreated() =>
-            _heroTransform = _factory.HeroGameObject.transform;
     }
 }

@@ -23,5 +23,11 @@ namespace CodeBase.Enemy
             
             HealthChanged?.Invoke();
         }
+
+        public void SetData(float current, float max)
+        {
+            _current = current;
+            _max = max;
+        }
     }
 }

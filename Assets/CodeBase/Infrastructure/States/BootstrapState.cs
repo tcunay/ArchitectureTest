@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistantProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
+using CodeBase.StaticData;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
@@ -14,13 +15,13 @@ namespace CodeBase.Infrastructure.States
 
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
-        private readonly AllServices _services;
+        private readonly AllServices _container;
 
-        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices services)
+        public BootstrapState(GameStateMachine stateMachine, SceneLoader sceneLoader, AllServices container)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
-            _services = services;
+            _container = container;
 
             RegisterServices();
         }
@@ -39,11 +40,19 @@ namespace CodeBase.Infrastructure.States
 
         private void RegisterServices()
         {
-            _services.RegisterSingle<IInputService>(InputService());
-            _services.RegisterSingle<IAssets>(new Assets());
-            _services.RegisterSingle<IPersistantProgressService>(new PersistantProgressService());
-            _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssets>()));
-            _services.RegisterSingle<ISaveLoadService>(new SaveLoadService(_services.Single<IPersistantProgressService>(), _services.Single<IGameFactory>()));
+            RegisterStaticData();
+            _container.RegisterSingle(InputService());
+            _container.RegisterSingle<IAssets>(new Assets());
+            _container.RegisterSingle<IPersistantProgressService>(new PersistantProgressService());
+            _container.RegisterSingle<IGameFactory>(new GameFactory(_container.Single<IAssets>(), _container.Single<IStaticDataService>()));
+            _container.RegisterSingle<ISaveLoadService>(new SaveLoadService(_container.Single<IPersistantProgressService>(), _container.Single<IGameFactory>()));
+        }
+
+        private void RegisterStaticData()
+        {
+            IStaticDataService staticData = new StaticDataService();
+            staticData.LoadMonsters();
+            _container.RegisterSingle(staticData);
         }
 
         private static IInputService InputService() =>

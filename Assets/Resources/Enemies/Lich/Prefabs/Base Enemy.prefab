@@ -62,49 +62,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: '
-
-    Transform ''Head'' has been deleted
-
-    Transform ''Hand_L''
-    has been deleted
-
-    Transform ''Lower_Arm_L'' has been deleted
-
-    Transform
-    ''Upper_Arm_L'' has been deleted
-
-    Transform ''Hand_R'' has been deleted
-
-    Transform
-    ''Rower_Arm_R'' has been deleted
-
-    Transform ''Upper_Arm_R'' has been deleted
-
-    Transform
-    ''Spine'' has been deleted
-
-    Transform ''Toes_L'' has been deleted
-
-    Transform
-    ''Foot_L'' has been deleted
-
-    Transform ''Lower_Leg_L'' has been deleted
-
-    Transform
-    ''Upper_Leg_L'' has been deleted
-
-    Transform ''Toes_R'' has been deleted
-
-    Transform
-    ''Foot_R'' has been deleted
-
-    Transform ''Rower_Reg_R'' has been deleted
-
-    Transform
-    ''Upper_Reg_R'' has been deleted
-
-    Transform ''Hips'' has been deleted'
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -465,7 +423,6 @@ GameObject:
   - component: {fileID: 6817579365104996871}
   - component: {fileID: 1792480363123275643}
   - component: {fileID: 6798175050508308495}
-  - component: {fileID: 370483941102250862}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -550,19 +507,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30326a2b10f147379425ee9937bf6ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &370483941102250862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4141377429999977304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94f8091ef1ee47e2bb0614679e10f810, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hpBar: {fileID: 5953042128927385874}
 --- !u!1 &4634233015914942724
 GameObject:
   m_ObjectHideFlags: 0
