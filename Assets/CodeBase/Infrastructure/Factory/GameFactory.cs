@@ -6,6 +6,7 @@ using CodeBase.Infrastructure.Services.PersistantProgress;
 using CodeBase.Logic;
 using CodeBase.StaticData;
 using CodeBase.UI;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Object = UnityEngine.Object;
@@ -48,12 +49,19 @@ namespace CodeBase.Infrastructure.Factory
             monster.GetComponent<AgentMoveToPlayer>()?.Construct(HeroGameObject.transform);
             monster.GetComponent<AgentRotateToHero>()?.Construct(HeroGameObject.transform);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
+
+            LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
+            lootSpawner.Construct(this);
+
             Attack attack = monster.GetComponent<Attack>();
             attack.Construct(HeroGameObject.transform);
             attack.SetData(monsterData.Damage, monsterData.Cleavage, monsterData.EffectiveDistance);
 
             return monster;
         }
+
+        public GameObject CreateLoot() => 
+            InstantiateRegistered(AssetPath.Loot);
 
         public void Cleanup()
         {
