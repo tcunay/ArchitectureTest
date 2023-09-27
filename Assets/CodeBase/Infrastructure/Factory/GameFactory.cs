@@ -17,15 +17,17 @@ namespace CodeBase.Infrastructure.Factory
     {
         private readonly IAssets _assets;
         private readonly IStaticDataService _staticData;
+        private readonly IRandomService _randomService;
 
         public List<ISavedProgressReader> ProgressReaders { get; } = new();
         public List<ISavedProgress> ProgressWriters { get; } = new();
         private GameObject HeroGameObject { get; set; }
 
-        public GameFactory(IAssets assets, IStaticDataService staticData)
+        public GameFactory(IAssets assets, IStaticDataService staticData, IRandomService randomService)
         {
             _assets = assets;
             _staticData = staticData;
+            _randomService = randomService;
         }
 
         public GameObject CreateHero(GameObject at)
@@ -51,7 +53,8 @@ namespace CodeBase.Infrastructure.Factory
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
             LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
-            lootSpawner.Construct(this);
+            lootSpawner.Construct(this, _randomService);
+            lootSpawner.SetLoot(monsterData.MinLoot, monsterData.MaxLoot);
 
             Attack attack = monster.GetComponent<Attack>();
             attack.Construct(HeroGameObject.transform);
