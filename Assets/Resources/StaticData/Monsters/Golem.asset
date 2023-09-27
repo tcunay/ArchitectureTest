@@ -15,6 +15,8 @@ MonoBehaviour:
   _monsterTypeId: 20
   _hp: 34
   _damage: 27.3
+  _maxLoot: 10
+  _minLoot: 25
   _effectiveDistance: 0.579
   _cleavage: 0.713
   _moveSpeed: 1.1

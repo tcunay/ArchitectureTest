@@ -15,6 +15,9 @@ MonoBehaviour:
   _monsterTypeId: 10
   _hp: 26
   _damage: 15.9
+  _maxLoot: 1
+  _minLoot: 7
   _effectiveDistance: 0.579
   _cleavage: 0.713
+  _moveSpeed: 5
   _prefab: {fileID: 1702754266617796403, guid: cbb95c54747700b4089b20aea52a2bcc, type: 3}
