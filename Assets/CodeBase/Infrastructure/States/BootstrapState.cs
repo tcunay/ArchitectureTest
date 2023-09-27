@@ -46,7 +46,7 @@ namespace CodeBase.Infrastructure.States
             IAssets assets = _container.RegisterSingle<IAssets>(new Assets());
             
             IPersistantProgressService progress = _container.RegisterSingle<IPersistantProgressService>(new PersistantProgressService());
-            IGameFactory factory = _container.RegisterSingle<IGameFactory>(new GameFactory(assets, staticData, random));
+            IGameFactory factory = _container.RegisterSingle<IGameFactory>(new GameFactory(assets, staticData, random, progress));
             _container.RegisterSingle<ISaveLoadService>(new SaveLoadService(progress, factory));
         }
 
