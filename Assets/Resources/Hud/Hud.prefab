@@ -577,45 +577,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1198110311400335403}
     m_Modifications:
-    - target: {fileID: 1924028453699589895, guid: 257296a0580018d4dba28b99059a2991, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924028453699589895, guid: 257296a0580018d4dba28b99059a2991, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924028453699589895, guid: 257296a0580018d4dba28b99059a2991, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924028453699589895, guid: 257296a0580018d4dba28b99059a2991, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924028453699589895, guid: 257296a0580018d4dba28b99059a2991, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5982860823926514193, guid: 257296a0580018d4dba28b99059a2991, type: 3}
       propertyPath: m_Name
       value: Loot
-      objectReference: {fileID: 0}
-    - target: {fileID: 6795226421859015349, guid: 257296a0580018d4dba28b99059a2991, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6795226421859015349, guid: 257296a0580018d4dba28b99059a2991, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6795226421859015349, guid: 257296a0580018d4dba28b99059a2991, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6795226421859015349, guid: 257296a0580018d4dba28b99059a2991, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7453774171917502010, guid: 257296a0580018d4dba28b99059a2991, type: 3}
       propertyPath: m_Pivot.x
