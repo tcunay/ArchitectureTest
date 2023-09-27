@@ -11,11 +11,14 @@ namespace CodeBase.Enemy
         [SerializeField] private EnemyAnimator _animator;
         [SerializeField] private GameObject _deathFx;
 
+        private FollowToHerro[] _follows;
+
         public event Action Happend;
 
         private void Start()
         {
             _health.HealthChanged += OnHealthChanged;
+            _follows = GetComponents<FollowToHerro>();
         }
 
         private void OnDestroy()
@@ -32,6 +35,11 @@ namespace CodeBase.Enemy
         private void Die()
         {
             _health.HealthChanged -= OnHealthChanged;
+            
+            foreach (FollowToHerro follow in _follows)
+            {
+                follow.enabled = false;
+            }
             
             _animator.PlayDeath();
             SpawnDeathFx();
