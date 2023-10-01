@@ -48,6 +48,15 @@ namespace CodeBase.Infrastructure.Factory
             return hud;
         }
 
+        public void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId)
+        {
+            var spawner = InstantiateRegistered(AssetPath.Spawner, at)
+                .GetComponent<EnemySpawner>();
+            spawner.SetId(spawnerId);
+            spawner.SetMonsterTypeId(monsterTypeId);
+
+        }
+
         public GameObject CreateMonster(MonsterTypeId typeId, Transform parent)
         {
             MonsterStaticData monsterData = _staticData.ForMonster(typeId);

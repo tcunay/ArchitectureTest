@@ -27,6 +27,16 @@ namespace CodeBase.Logic
             _factory = AllServices.Container.Single<IGameFactory>();
         }
 
+        public void SetId(string id)
+        {
+            _id = id;
+        }
+
+        public void SetMonsterTypeId(MonsterTypeId monsterTypeId)
+        {
+            _monsterTypeId = monsterTypeId;
+        }
+
         public void LoadProgress(PlayerProgress progress)
         {
             if (progress.KillData.ClearedSpawners.Contains(_id))
