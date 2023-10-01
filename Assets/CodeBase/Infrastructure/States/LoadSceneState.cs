@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
 {
-    public class LoadLevelState : IPayloadedState<string>
+    public class LoadSceneState : IPayloadedState<string>
     {
         private const string InitialPointTag = "InitialPoint";
         private const string EnemySpawnerTag = "EnemySpawner";
@@ -19,7 +19,7 @@ namespace CodeBase.Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IPersistantProgressService _progressService;
 
-        public LoadLevelState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistantProgressService progressService)
+        public LoadSceneState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory, IPersistantProgressService progressService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
