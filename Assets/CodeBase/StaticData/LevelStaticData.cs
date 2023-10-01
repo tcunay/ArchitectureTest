@@ -11,5 +11,15 @@ namespace CodeBase.StaticData
 
         public List<EnemySpawnerData> EnemySpawners => _enemySpawners;
         public string LevelKey => _levelKey;
+
+        public void SetEnemySpawners(List<EnemySpawnerData> spawners)
+        {
+            _enemySpawners = spawners;
+        }
+
+        public void SetLevelKey(string levelKey)
+        {
+            _levelKey = levelKey;
+        }
     }
 }

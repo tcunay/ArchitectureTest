@@ -1,16 +1,17 @@
 ﻿using System;
 using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
 using UnityEditor;
 using UnityEngine;
 
 namespace CodeBase.Editor
 {
-    [CustomEditor(typeof(EnemySpawner))]
-    public class EnemySpawnerEditor : UnityEditor.Editor
+    [CustomEditor(typeof(SpawnMarker))]
+    public class SpawnMarkerEditor : UnityEditor.Editor
     {
         [DrawGizmo(GizmoType.Active | GizmoType.Pickable | GizmoType.NonSelected)]
-        public static void RenderCustomGizmo(EnemySpawner spawner, GizmoType gizmo)
+        public static void RenderCustomGizmo(SpawnMarker spawner, GizmoType gizmo)
         {
             Vector3 spawnPosition = spawner.transform.position;
             //Vector3 cameraForward = SceneView.currentDrawingSceneView.camera.transform.forward;

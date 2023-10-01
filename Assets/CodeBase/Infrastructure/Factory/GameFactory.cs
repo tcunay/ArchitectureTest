@@ -4,9 +4,9 @@ using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistantProgress;
 using CodeBase.Logic;
+using CodeBase.Logic.EnemySpawners;
 using CodeBase.StaticData;
 using CodeBase.UI;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using Object = UnityEngine.Object;
@@ -51,7 +51,8 @@ namespace CodeBase.Infrastructure.Factory
         public void CreateSpawner(Vector3 at, string spawnerId, MonsterTypeId monsterTypeId)
         {
             var spawner = InstantiateRegistered(AssetPath.Spawner, at)
-                .GetComponent<EnemySpawner>();
+                .GetComponent<SpawnPoint>();
+            spawner.Construct(this);
             spawner.SetId(spawnerId);
             spawner.SetMonsterTypeId(monsterTypeId);
 
@@ -117,7 +118,7 @@ namespace CodeBase.Infrastructure.Factory
                 Register(progressReader);
         }
 
-        public void Register(ISavedProgressReader progressReader)
+        private void Register(ISavedProgressReader progressReader)
         {
             if (progressReader is ISavedProgress progressWriter)
             {

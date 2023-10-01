@@ -13,5 +13,12 @@ namespace CodeBase.StaticData
         public string ID => _id;
         public MonsterTypeId MonsterTypeId => _monsterTypeId;
         public Vector3 Position => _position;
+
+        public EnemySpawnerData(string id, MonsterTypeId monsterTypeId, Vector3 position)
+        {
+            _id = id;
+            _monsterTypeId = monsterTypeId;
+            _position = position;
+        }
     }
 }
