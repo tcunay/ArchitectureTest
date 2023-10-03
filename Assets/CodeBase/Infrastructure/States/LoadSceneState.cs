@@ -1,11 +1,11 @@
 ﻿using CodeBase.CameraLogic;
-using CodeBase.Hero;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistantProgress;
 using CodeBase.Logic;
 using CodeBase.StaticData;
-using CodeBase.UI;
+using CodeBase.UI.Elements;
+using CodeBase.UI.Services.Factory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,9 +22,10 @@ namespace CodeBase.Infrastructure.States
         private readonly IGameFactory _gameFactory;
         private readonly IPersistantProgressService _progressService;
         private readonly IStaticDataService _staticDataService;
+        private readonly IUIFactory _uiFactory;
 
         public LoadSceneState(GameStateMachine stateMachine, SceneLoader sceneLoader, LoadingCurtain curtain, IGameFactory gameFactory,
-            IPersistantProgressService progressService, IStaticDataService staticDataService)
+            IPersistantProgressService progressService, IStaticDataService staticDataService, IUIFactory uiFactory)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
@@ -32,6 +33,7 @@ namespace CodeBase.Infrastructure.States
             _gameFactory = gameFactory;
             _progressService = progressService;
             _staticDataService = staticDataService;
+            _uiFactory = uiFactory;
         }
 
         public void Enter(string sceneName)
@@ -48,6 +50,7 @@ namespace CodeBase.Infrastructure.States
 
         private void OnLoaded()
         {
+            InitUiRoot();
             InitGameWorld();
 
             InformProgressReaders();
@@ -61,6 +64,11 @@ namespace CodeBase.Infrastructure.States
             {
                 progressReader.LoadProgress(_progressService.Progress);
             }
+        }
+
+        private void InitUiRoot()
+        {
+            _uiFactory.CreateUIRoot();
         }
 
         private void InitGameWorld()

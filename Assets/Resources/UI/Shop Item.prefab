@@ -496,6 +496,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Price_Container
       objectReference: {fileID: 0}
+    - target: {fileID: 6787052550914739374, guid: 257296a0580018d4dba28b99059a2991, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6795226421859015349, guid: 257296a0580018d4dba28b99059a2991, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

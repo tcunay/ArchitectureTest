@@ -5,6 +5,8 @@ using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure.Services.PersistantProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.StaticData;
+using CodeBase.UI.Services.Factory;
+using CodeBase.UI.Services.Windows;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.States
@@ -41,13 +43,55 @@ namespace CodeBase.Infrastructure.States
         private void RegisterServices()
         {
             IStaticDataService staticData = RegisterStaticData();
-            IInputService input = _container.RegisterSingle(InputService());
-            IRandomService random = _container.RegisterSingle<IRandomService>(new UnityRandomService());
-            IAssets assets = _container.RegisterSingle<IAssets>(new Assets());
-            
-            IPersistantProgressService progress = _container.RegisterSingle<IPersistantProgressService>(new PersistantProgressService());
-            IGameFactory factory = _container.RegisterSingle<IGameFactory>(new GameFactory(assets, staticData, random, progress));
-            _container.RegisterSingle<ISaveLoadService>(new SaveLoadService(progress, factory));
+            IInputService input = RegisterInputService();
+            IRandomService random = RegisterRandomService();
+            IAssets assets = RegisterAssets();
+            IPersistantProgressService progress = RegisterPersistantProgressService();
+            IUIFactory uiFactory = RegisterUIFactoryService(assets, staticData);
+            IWindowService windowService = RegisterWindowService(uiFactory);
+            IGameFactory factory = RegisterFactory(assets, staticData, random, progress, windowService);
+            ISaveLoadService saveLoadService = RegisterSaveLoadService(progress, factory);
+        }
+
+        private IWindowService RegisterWindowService(IUIFactory uiFactory)
+        {
+            return _container.RegisterSingle<IWindowService>(new WindowService(uiFactory));
+        }
+
+        private IUIFactory RegisterUIFactoryService(IAssets assets, IStaticDataService staticData)
+        {
+            return _container.RegisterSingle<IUIFactory>(new UIFactory(assets, staticData));
+        }
+
+        private ISaveLoadService RegisterSaveLoadService(IPersistantProgressService progress, IGameFactory factory)
+        {
+            return _container.RegisterSingle<ISaveLoadService>(new SaveLoadService(progress, factory));
+        }
+
+        private IAssets RegisterAssets()
+        {
+            return _container.RegisterSingle<IAssets>(new Assets());
+        }
+
+        private IRandomService RegisterRandomService()
+        {
+            return _container.RegisterSingle<IRandomService>(new UnityRandomService());
+        }
+
+        private IInputService RegisterInputService()
+        {
+            return _container.RegisterSingle(InputService());
+        }
+
+        private IPersistantProgressService RegisterPersistantProgressService()
+        {
+            return _container.RegisterSingle<IPersistantProgressService>(new PersistantProgressService());
+        }
+
+        private IGameFactory RegisterFactory(IAssets assets, IStaticDataService staticData, IRandomService random,
+            IPersistantProgressService progress, IWindowService windowService)
+        {
+            return _container.RegisterSingle<IGameFactory>(new GameFactory(assets, staticData, random, progress, windowService));
         }
 
         private IStaticDataService RegisterStaticData()
