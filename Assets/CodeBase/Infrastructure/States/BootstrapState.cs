@@ -47,7 +47,7 @@ namespace CodeBase.Infrastructure.States
             IRandomService random = RegisterRandomService();
             IAssets assets = RegisterAssets();
             IPersistantProgressService progress = RegisterPersistantProgressService();
-            IUIFactory uiFactory = RegisterUIFactoryService(assets, staticData);
+            IUIFactory uiFactory = RegisterUIFactoryService(assets, staticData, progress);
             IWindowService windowService = RegisterWindowService(uiFactory);
             IGameFactory factory = RegisterFactory(assets, staticData, random, progress, windowService);
             ISaveLoadService saveLoadService = RegisterSaveLoadService(progress, factory);
@@ -58,9 +58,10 @@ namespace CodeBase.Infrastructure.States
             return _container.RegisterSingle<IWindowService>(new WindowService(uiFactory));
         }
 
-        private IUIFactory RegisterUIFactoryService(IAssets assets, IStaticDataService staticData)
+        private IUIFactory RegisterUIFactoryService(IAssets assets, IStaticDataService staticData,
+            IPersistantProgressService progressService)
         {
-            return _container.RegisterSingle<IUIFactory>(new UIFactory(assets, staticData));
+            return _container.RegisterSingle<IUIFactory>(new UIFactory(assets, staticData, progressService));
         }
 
         private ISaveLoadService RegisterSaveLoadService(IPersistantProgressService progress, IGameFactory factory)
