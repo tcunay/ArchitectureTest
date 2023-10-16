@@ -909,11 +909,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: ccafcbe6-2cd4-467f-b386-04bc94035370
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: ArchitectureCourse
+  organizationId: tcunay34
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
